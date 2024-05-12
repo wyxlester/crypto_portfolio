@@ -220,6 +220,7 @@ def add_to_portfolio_view(request):
     symbol = data['symbol']
     current_price = data['market_data']['current_price']['usd']
 
+    # If a crypto exist in user db, its quantity will be updated. Otherwise, a new entry will be created.
     try:
         # save the crypto currency to the database
         crypto_currency = Cryptocurrency.objects.create(

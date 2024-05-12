@@ -16,12 +16,6 @@ Home
   {% endfor %}
 {% endif %}
 
-{% if user.is_authenticated %}
-  <div class="row justify-content-left custom-title">
-    <h2 class="text-uppercase text-primary welcome-user-text">Welcome {{ user.username | capfirst }} </h2>
-  </div>
-{% endif %}
-
 <!--SEARCH BAR-->
 <div class="container mt-5 mb-5">
   <div class="row justify-content-center">
@@ -43,40 +37,53 @@ Home
 </div>
 
 <!--GLOBAL CRYPTO CURRENCIES-->
-<div class="row justify-content-center">
-<h2 class="text-center mt-5 mb-0 custom-heading"> Top 10 CryptoCurrency Rankings </h2>
-</div>
-<br><br><br>
-<div class="flex-container">
-  {% if top_10_crypto_data_global %}
-    {% for obj in top_10_crypto_data_global %}
-      <div class="crypto-item">
-        <img src={{obj.image}} height='70'>
-        <div class="crypto-info">
-          <h3>{{obj.name}}</h3>
-          <p><b>Rank</b>: {{obj.market_cap_rank}}</p>
-          <p><b>Market</b> cap: {{obj.market_cap}}</p>
-          <p><b>Price</b>: {{obj.current_price}}</p>
-          <p><b>Price Change 24H</b>: {{obj.price_change_24h|floatformat:5 }}
-            {% if obj.price_change_percentage_24h > 0 %}
-              <i class="fa fa-arrow-up green-arrow"></i>
-            {% else %}
-            <i class="fa fa-arrow-down red-arrow"></i>
-            {% endif %}
-          </p<b>
-          <p><b>Price Change 24H (%)</b>: {{obj.price_change_percentage_24h|floatformat:3 }}
-            {% if obj.price_change_percentage_24h > 0 %}
-              <i class="fa fa-arrow-up green-arrow"></i>
-            {% else %}
-              <i class="fa fa-arrow-down red-arrow"></i>
-            {% endif %}
-          </p>
-        </div>
-      </div>
-    {% endfor %}
-  {% else %}
-    <h3>No data</h3>
-  {% endif %}
+<div class='container mb-5'>
+  <div class="row justify-content-center">
+    <h2 class="text-center mt-5 mb-0 custom-heading"> Top 10 CryptoCurrency Rankings </h2>
+  </div>
+  <br><br>
+  <div class="">
+    {% if top_10_crypto_data_global %}
+        <table class='table table-hover' style="color:white;">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Coin</th>
+              <th>Market Cap</th>
+              <th>Current Price</th>
+              <th>Price Change 24H</th>
+              <th>Price Change 24H (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for obj in top_10_crypto_data_global %}
+              <tr>
+                <td>{{obj.market_cap_rank}}</td>
+                <td><img src={{obj.image}} height='20'>&nbsp;&nbsp;{{obj.name}}</td>
+                <td>{{obj.market_cap}}</td>
+                <td>{{obj.current_price}}
+                <td>{{obj.price_change_24h|floatformat:5 }}
+                  {% if obj.price_change_percentage_24h > 0 %}
+                    <i class="fa fa-arrow-up green-arrow"></i>
+                  {% else %}
+                  <i class="fa fa-arrow-down red-arrow"></i>
+                  {% endif %}
+                </td>
+                <td>{{obj.price_change_percentage_24h|floatformat:3 }}
+                  {% if obj.price_change_percentage_24h > 0 %}
+                    <i class="fa fa-arrow-up green-arrow"></i>
+                  {% else %}
+                    <i class="fa fa-arrow-down red-arrow"></i>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    {% else %}
+      <h3>No data</h3>
+    {% endif %}
+  </div>
 </div>
 
 
